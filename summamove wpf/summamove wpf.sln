@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "summamove wpf", "summamove wpf\summamove wpf.csproj", "{89E075AE-75FA-4990-80F8-4D8F41F4010D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89E075AE-75FA-4990-80F8-4D8F41F4010D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89E075AE-75FA-4990-80F8-4D8F41F4010D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89E075AE-75FA-4990-80F8-4D8F41F4010D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89E075AE-75FA-4990-80F8-4D8F41F4010D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A0F28D59-951A-4907-A916-50C0D4F78091}
+	EndGlobalSection
+EndGlobal
