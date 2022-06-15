@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OefeningenController;
+use App\Http\Controllers\Postscontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [OefeningenController::class, 'index']);
+Route::get('/about', [OefeningenController::class, 'about']);
+Route::get('/posts', [OefeningenController::class, 'index']);
