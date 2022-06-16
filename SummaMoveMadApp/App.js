@@ -1,36 +1,29 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './components/HomeScreen';
-import ListScreen from './components/ListScreen';
-import DetailsScreen from './components/DetailsScreen';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
+import StudentStack from "./routes/StudentStack.js";
+import StartScherm from "./view/startscherm.js";
 
-function AppStack() {
+
+const BegginStack = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="stList" component={ListScreen} />
-      <Stack.Screen name="stDetails" component={DetailsScreen} />
+    <Stack.Navigator screenOptions={{ header: () => null }}>
+      <Stack.Screen name="StartScherm" component={StartScherm} />
+      <Stack.Screen name="Studenten" component={StudentStack} />
     </Stack.Navigator>
   );
-}
+};
 
-function AppTabs() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="tabHome" component={HomeScreen} />
-      <Tab.Screen name="tabApp" component={AppStack} />
-    </Tab.Navigator>
-  );
-}
-
-const App = () => {
+const App = ({ navigation }) => {
   return (
     <NavigationContainer>
-      <AppTabs />
+      <BegginStack />
     </NavigationContainer>
   );
-}
+};
+
 export default App;
