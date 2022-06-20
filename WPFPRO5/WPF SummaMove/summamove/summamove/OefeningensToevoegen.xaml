@@ -1,0 +1,97 @@
+﻿<Window x:Class="summamove.OefeningensToevoegen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:summamove"
+        mc:Ignorable="d"
+        Title="OefeningensToevoegen" Height="600" Width="1000"  Icon="Assets/Logo.png">
+
+    <Grid>
+
+        <!--Background Border-->
+
+        <Border Background="#ECF0F1"
+                CornerRadius="10"/>
+
+        <!--Header-->
+
+        <Border Background="#d70096"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                CornerRadius="10,0,100,0"
+                Height="80"
+                Width="850">
+
+
+
+        </Border>
+
+        <!--Footer-->
+
+        <Border Background="#d70096"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                CornerRadius="100,0,10,0"
+                Height="80"
+                Width="850">
+
+
+
+        </Border>
+
+        <!--Content Background-->
+
+        <Border Background="#24126e"
+                BorderBrush="#FFFFFF"
+                BorderThickness="0,5,0,5"
+                Height="480"
+                Margin="0,10,0,0"
+                CornerRadius="25"/>
+
+        <!--Content Grid-->
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <StackPanel  Grid.Row="1" Grid.Column="1"  VerticalAlignment="Center" >
+                <DockPanel Margin="0,0,0,10">
+                    <TextBlock Margin="0,0,30,0" FontSize="20">Naam</TextBlock>
+                    <TextBox x:Name="TBNaam" Background="White" FontSize="20" Width="301"></TextBox>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Margin="0,0,0,0" FontSize="20">Beschrijving</TextBlock>
+                    <TextBox x:Name="TBBeschrijving" Background="White" FontSize="20" Height="200" Width="324" TextWrapping="Wrap"></TextBox>
+                </DockPanel>
+
+                <Button x:Name="BTToevoegen" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Aanmaken" FontSize="20" Margin="0,10,0,0" Click="BTToevoegen_Click"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="2"  VerticalAlignment="Center">
+                <Image x:Name="Foto" Height="300" Width="300"></Image>
+                <Button VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="Selectpicture" Click="Selectpicture_Click" >Select a picture</Button>
+            </StackPanel>
+
+
+        </Grid>
+
+        <!--Close Button-->
+
+
+
+    </Grid>
+
+</Window>
+
+
+

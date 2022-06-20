@@ -1,0 +1,89 @@
+﻿<Window x:Class="summamove.Gebruikerwijzigen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:summamove"
+        mc:Ignorable="d"
+        Title="Gebruikerwijzigen"  Height="580" 
+        Width="930" Icon="Assets/Logo.png">
+
+    <Grid>
+
+        <!--Background Border-->
+
+        <Border Background="#ECF0F1"
+                CornerRadius="10"/>
+
+        <!--Header-->
+
+        <Border Background="#d70096"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                CornerRadius="10,0,100,0"
+                Height="80"
+                Width="850">
+
+
+
+        </Border>
+
+        <!--Footer-->
+
+        <Border Background="#d70096"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                CornerRadius="100,0,10,0"
+                Height="80"
+                Width="850">
+
+
+
+        </Border>
+
+        <!--Content Background-->
+
+        <Border Background="#24126e"
+                BorderBrush="#FFFFFF"
+                BorderThickness="0,5,0,5"
+                Height="480"
+                Margin="0,10,0,0"
+                CornerRadius="25"/>
+
+        <!--Content Grid-->
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <StackPanel  Grid.Row="1" Grid.Column="1"  VerticalAlignment="Center"  >
+                <DockPanel Margin="0,10,0,10">
+                    <TextBlock Foreground="#fc0303" Margin="0,0,32,0" FontSize="20">Name</TextBlock>
+                    <TextBox  x:Name="TBName" Background="White" FontSize="20" Width="325"></TextBox>
+                </DockPanel>
+                <DockPanel Margin="0,10,0,10">
+                    <TextBlock Foreground="#fc0303" Margin="0,0,32,0" FontSize="20">Email</TextBlock>
+                    <TextBox x:Name="TBEmail" Background="White" FontSize="20" Width="324"></TextBox>
+                </DockPanel>
+              
+                <Button Foreground="#fc0303" Background="LightBlue" x:Name="BTWijzigen" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Opslaan" FontSize="20" Margin="0,10,0,0" Click="BTWijzigen_Click"/>
+            </StackPanel>
+
+
+        </Grid>
+
+        <!--Close Button-->
+
+
+
+    </Grid>
+
+</Window>
+

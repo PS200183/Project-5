@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('naamoefening');
             $table->string('beschrijving');
-            $table->string('foto');
+            $table->binary('foto');
             $table->timestamps();
         });
     }
