@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\PrestatiesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,4 +25,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::post('/logout', [AuthenticationController::class, 'logout']);
+    Route::apiResource('Prestaties', PrestatiesController::class)->only(['store']);
 });
+
+
