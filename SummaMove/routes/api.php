@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\PrestatiesController;
+use App\Http\Controllers\OefeningenController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,6 +19,7 @@ use App\Http\Controllers\PrestatiesController;
 Route::post('/register', [AuthenticationController::class, 'register']);
 Route::post('/login', [AuthenticationController::class, 'login']);
 
+      Route::apiResource('oefeningens', OefeningenController::class)->only(['index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('profile', function (Request $request) {
@@ -25,7 +27,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::post('/logout', [AuthenticationController::class, 'logout']);
-    Route::apiResource('Prestaties', PrestatiesController::class)->only(['store']);
+    Route::apiResource('Prestaties', PrestatiesController::class);
 });
 
 
