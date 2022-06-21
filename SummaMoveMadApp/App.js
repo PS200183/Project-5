@@ -7,8 +7,10 @@ const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 import StudentStack from "./routes/StudentStack.js";
 import StartScherm from "./view/startscherm.js";
+import Infoapp from "./view/Infoapp.js";
 import LoginStudent from "./view/loginStudent.js";
 import GastenStack from "./routes/GastenStack.js";
+
 
 
 const BegginStack = () => {
@@ -18,6 +20,7 @@ const BegginStack = () => {
       <Stack.Screen name="Gasten" component={GastenStack} />
 
       <Stack.Screen name="LoginStudent" component={LoginStudent} />
+      <Stack.Screen name="Infoapp" component={Infoapp} />
       <Stack.Screen name="Studenten" component={StudentStack} />
     </Stack.Navigator>
   );

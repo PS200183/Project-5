@@ -25,7 +25,16 @@ const startscherm = ({ navigation }) => {
               Gasten
             </Text>
           </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.tekstmiddel} onPress={() => navigation.navigate("Infoapp")}>
+          <Text style={{ fontWeight: "bold", color: "#fff", fontSize: 18 }}>
+              {" "}
+              Informatie over de app
+            </Text>
+            </TouchableOpacity>
+
         </SafeAreaView>
+        
         <StatusBar barStyle="light-content" />
       </View>
     );
@@ -34,6 +43,7 @@ const startscherm = ({ navigation }) => {
 export default startscherm
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
         backgroundColor: "#fff",
@@ -50,13 +60,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginHorizontal: 30,
       },
-      button: {
+        button: {
+          backgroundColor: '#24126E',
+          height: 58,
+          borderRadius: 10,
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 40,
+        },
+        tekstmiddel: {
         backgroundColor: '#24126E',
-        height: 58,
+        height: 35,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 40,
+        marginTop: 20,
       },
 
 })
