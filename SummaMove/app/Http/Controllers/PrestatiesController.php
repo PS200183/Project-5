@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Prestatie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Illuminate\Support\Facades\Validator;
 
 class PrestatiesController extends Controller
 {
@@ -16,6 +18,7 @@ class PrestatiesController extends Controller
      */
     public function index(Request $request)
     {
+        return $request->user()->get();
         try {
             if ($request->has('User')) {
                 Log::channel('SummaMove')->info('Haal Prestaties op van gebruiker met ID: ' . $request->User);
@@ -105,10 +108,7 @@ class PrestatiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+   
 
     /**
      * Update the specified resource in storage.
@@ -117,9 +117,48 @@ class PrestatiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Prestatie $Prestatie)
     {
-        //
+        try {
+            Log::channel('SummaMove')->info('prestatie geupdate', ['ip' => $request->ip(), 'data' => $request->all()]);
+
+            $validator = Validator::make($request->all(), [
+                
+                'begintijd' => 'required',
+                'eindtijd' => 'required',
+                'aantal' => 'required',
+                'user_id' => 'required',
+                'oefening_id' => 'required',
+            ]);
+            if ($validator->fails()) {
+                Log::error("prestatie wijzigen Fout");
+                $content = [
+                    'success' => false,
+                    'data'    => $request->all(),
+                    'foutmelding' => 'Gewijzigde data niet correct',
+                    
+                ];
+                return response()->json($content, 400);
+            } else {
+
+                Log::channel('SummaMove')->info('prestatie geupdate', [$Prestatie->update($request->all())]);
+                $content = [
+                    'success' => $Prestatie->update($request->all()),
+                    'data'    => $request->all(),
+                    
+                ];
+                return response()->json($content, 200);
+            }
+        } catch (\Exception $e) {
+            Log::channel('SummaMove')->error('Fout bij het update van een prestatie: ' . $e->getMessage());
+            $content = [
+                'success' => false,
+                'data'    => null,
+                'foutmelding' => 'Gegegevens kunnen niet gewijzigd worden.',
+                
+            ];
+            return response()->json($content, 500);
+        }
     }
 
     /**
