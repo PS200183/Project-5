@@ -14,10 +14,39 @@ class PrestatiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        try {
+            if ($request->has('User')) {
+                Log::channel('SummaMove')->info('Haal Prestaties op van gebruiker met ID: ' . $request->User);
+                $data =  Prestatie::where('user_id', $request->User)->get();
+                $message = 'Prestatie opgehaald';
+            } else if ($request->has('Oefening') && $request->has('User')) {
+
+                Log::channel('SummaMove')->info('Haal Prestaties op van gebruiker met ID: ' . $request->User . ' voor oefening met ID: ' . $request->Oefening);
+                $data =  Prestatie::where('user_id', $request->User)->where('oefening_id', $request->Oefening)->get();
+                $message = 'Prestatie opgehaald';
+            } 
+            $content = [
+                'success' => true,
+                'data'    => $data,
+                'message' => $message,
+
+            ];
+            return response()->json($content, 200);
+        } catch (\Exception $e) {
+            Log::channel('SummaMove')->error('Fout bij het ophalen van Prestaties: ' . $e->getMessage());
+
+            $content = [
+                'success' => false,
+                'data'    => null,
+                'message' => 'Er is iets fout gegaan bij het ophalen van u Prestaties',
+
+            ];
+            return response()->json($content, 500);
+        }
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -53,7 +82,7 @@ class PrestatiesController extends Controller
                 'success' => false,
                 'data'    => null,
                 'message' => 'Er is iets fout gegaan bij het aanmaken van een prestatie',
-              
+
             ];
             return response()->json($content, 500);
         }

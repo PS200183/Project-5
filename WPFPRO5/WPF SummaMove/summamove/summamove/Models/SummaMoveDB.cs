@@ -191,7 +191,7 @@ namespace summamove.Models
 
                 conn.Open();
                 MySqlCommand sql = conn.CreateCommand();
-                sql.CommandText = "SELECT * FROM oefeningens WHERE id = @ID ";
+                sql.CommandText = "SELECT * FROM oefeningwpf WHERE id = @ID ";
                 sql.Parameters.AddWithValue("@ID", ID);
                 MySqlDataReader reader = sql.ExecuteReader();
                 DataTable table = new DataTable();
@@ -230,7 +230,7 @@ namespace summamove.Models
             {
                 conn.Open();
                 MySqlCommand sql = conn.CreateCommand();
-                sql.CommandText = "SELECT * FROM oefeningens";
+                sql.CommandText = "SELECT * FROM oefeningwpf";
                 MySqlDataReader reader = sql.ExecuteReader();
                 DataTable table = new DataTable();
                 table.Load(reader);
@@ -273,7 +273,7 @@ namespace summamove.Models
                 conn.Open();
                 MySqlCommand sql = conn.CreateCommand();
                 sql.CommandText =
-                    "INSERT INTO oefeningens( naamoefening , beschrijving , foto )" +
+                    "INSERT INTO oefeningwpf( naamoefening , beschrijving , foto )" +
                     " VALUES(@Naam, @Beschrijving , @Foto)";
                 sql.Parameters.AddWithValue("@Naam", Naam);
                 sql.Parameters.AddWithValue("@Beschrijving", Beschrijving);
@@ -304,7 +304,7 @@ namespace summamove.Models
             {
                 conn.Open();
                 MySqlCommand sql = conn.CreateCommand();
-                sql.CommandText = "UPDATE  oefeningens  SET  naamoefening = @Naam , beschrijving = @Beschrijving , foto = @Foto  WHERE id  = @ID";
+                sql.CommandText = "UPDATE  oefeningwpf  SET  naamoefening = @Naam , beschrijving = @Beschrijving , foto = @Foto  WHERE id  = @ID";
                 sql.Parameters.AddWithValue("@ID", ID);
                 sql.Parameters.AddWithValue("@naam", Naam);
                 sql.Parameters.AddWithValue("@beschrijving", Beschrijving);
@@ -334,7 +334,7 @@ namespace summamove.Models
                 conn.Open();
                 MySqlCommand sql = conn.CreateCommand();
                 sql.CommandText =
-                    " DELETE FROM oefeningens WHERE  id = @ID";
+                    " DELETE FROM oefeningwpf WHERE  id = @ID";
                 sql.Parameters.AddWithValue("@ID", id);
 
                 result = sql.ExecuteNonQuery() == 1;

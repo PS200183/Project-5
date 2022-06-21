@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('prestaties', function (Blueprint $table) {
+         Schema::create('oefeningWPF', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->time('begintijd');
-            $table->time('eindtijd');
-            $table->integer('aantal');
-            $table->integer('oefening_id');
+            $table->string('naamoefening');
+            $table->string('beschrijving');
+            $table->binary('foto');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prestaties');
+         Schema::dropIfExists('oefeningWPF');
     }
 };

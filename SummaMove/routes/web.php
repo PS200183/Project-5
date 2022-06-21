@@ -14,7 +14,6 @@ use App\Http\Controllers\Postscontroller;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', [OefeningenController::class, 'index']);
-Route::get('/about', [OefeningenController::class, 'about']);
-Route::get('/posts', [OefeningenController::class, 'index']);
+Route::get('/', function () {
+    return view('welcome');
+});
