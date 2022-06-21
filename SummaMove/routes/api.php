@@ -19,7 +19,7 @@ use App\Http\Controllers\OefeningenController;
 Route::post('/register', [AuthenticationController::class, 'register']);
 Route::post('/login', [AuthenticationController::class, 'login']);
 
-      Route::apiResource('oefeningens', OefeningenController::class)->only(['index']);
+Route::apiResource('oefeningens', OefeningenController::class)->only(['index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('profile', function (Request $request) {
