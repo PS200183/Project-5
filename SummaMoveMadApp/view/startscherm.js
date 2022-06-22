@@ -29,7 +29,7 @@ const startscherm = ({ navigation }) => {
           <TouchableOpacity style={styles.tekstmiddel} onPress={() => navigation.navigate("Infoapp")}>
           <Text style={{ fontWeight: "bold", color: "#fff", fontSize: 18 }}>
               {" "}
-              Informatie over de app
+              Informatie
             </Text>
             </TouchableOpacity>
 
