@@ -18,7 +18,7 @@ class PrestatiesController extends Controller
      */
     public function index(Request $request)
     {
-        return $request->user()->get();
+       // return $request->user()->get();
         try {
             if ($request->has('User')) {
                 Log::channel('SummaMove')->info('Haal Prestaties op van gebruiker met ID: ' . $request->User);
@@ -29,7 +29,7 @@ class PrestatiesController extends Controller
                 Log::channel('SummaMove')->info('Haal Prestaties op van gebruiker met ID: ' . $request->User . ' voor oefening met ID: ' . $request->Oefening);
                 $data =  Prestatie::where('user_id', $request->User)->where('oefening_id', $request->Oefening)->get();
                 $message = 'Prestatie opgehaald';
-            } 
+            }
             $content = [
                 'success' => true,
                 'data'    => $data,
@@ -108,7 +108,7 @@ class PrestatiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   
+
 
     /**
      * Update the specified resource in storage.
@@ -117,13 +117,10 @@ class PrestatiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Prestatie $Prestatie)
+    public function update( Request $request ,Prestatie $Prestatie)
     {
-        try {
-            Log::channel('SummaMove')->info('prestatie geupdate', ['ip' => $request->ip(), 'data' => $request->all()]);
+    $validator = Validator::make($request->all(), [
 
-            $validator = Validator::make($request->all(), [
-                
                 'begintijd' => 'required',
                 'eindtijd' => 'required',
                 'aantal' => 'required',
@@ -136,7 +133,7 @@ class PrestatiesController extends Controller
                     'success' => false,
                     'data'    => $request->all(),
                     'foutmelding' => 'Gewijzigde data niet correct',
-                    
+
                 ];
                 return response()->json($content, 400);
             } else {
@@ -145,20 +142,94 @@ class PrestatiesController extends Controller
                 $content = [
                     'success' => $Prestatie->update($request->all()),
                     'data'    => $request->all(),
-                    
+
                 ];
                 return response()->json($content, 200);
             }
-        } catch (\Exception $e) {
-            Log::channel('SummaMove')->error('Fout bij het update van een prestatie: ' . $e->getMessage());
-            $content = [
-                'success' => false,
-                'data'    => null,
-                'foutmelding' => 'Gegegevens kunnen niet gewijzigd worden.',
-                
-            ];
-            return response()->json($content, 500);
-        }
+
+
+    //     try {
+    //          request()->validate([
+    //             'begintijd' => 'required',
+    //             'eindtijd' => 'required',
+    //             'aantal' => 'required',
+    //             'user_id' => 'required',
+    //             'oefening_id' => 'required',
+    //       ]);
+
+    //     $Prestatie->update([
+    //         'user_id' => request('user_id'),
+    //         'oefening_id' => request('oefening_id'),
+    //         'begintijd' => request('begintijd'),
+    //         'eindtijd' => request('eindtijd'),
+    //         'aantal' => request('aantal'),
+
+    //     ]);
+    //     $data = $Prestatie;
+    //     $message = "Prestatie is aangepast";
+    //     $content = [
+    //         'success' => true,
+    //         'data'    => $data,
+    //         'message' => $message,
+    //     ];
+    //     return response()->json($content, 200);
+
+    // }
+    //     catch (\Exception $e){
+    //         Log::channel('SummaMove')->error('Fout bij het updaten van een prestatie: ' . $e->getMessage());
+    //         $content = [
+    //             'success' => false,
+    //             'data'    => null,
+    //             'message' => 'Er is iets fout gegaan bij het updaten van een prestatie',
+
+    //         ];
+    //         return response()->json($content, 500);
+    //     }
+
+
+
+
+
+        // try {
+        //     Log::channel('SummaMove')->info('prestatie geupdate', ['ip' => $request->ip(), 'data' => $request->all()]);
+
+        //     $validator = Validator::make($request->all(), [
+
+        //         'begintijd' => 'required',
+        //         'eindtijd' => 'required',
+        //         'aantal' => 'required',
+        //         'user_id' => 'required',
+        //         'oefening_id' => 'required',
+        //     ]);
+        //     if ($validator->fails()) {
+        //         Log::error("prestatie wijzigen Fout");
+        //         $content = [
+        //             'success' => false,
+        //             'data'    => $request->all(),
+        //             'foutmelding' => 'Gewijzigde data niet correct',
+
+        //         ];
+        //         return response()->json($content, 400);
+        //     } else {
+
+        //         Log::channel('SummaMove')->info('prestatie geupdate', [$Prestatie->update($request->all())]);
+        //         $content = [
+        //             'success' => $Prestatie->update($request->all()),
+        //             'data'    => $request->all(),
+
+        //         ];
+        //         return response()->json($content, 200);
+        //     }
+        // } catch (\Exception $e) {
+        //     Log::channel('SummaMove')->error('Fout bij het update van een prestatie: ' . $e->getMessage());
+        //     $content = [
+        //         'success' => false,
+        //         'data'    => null,
+        //         'foutmelding' => 'Gegegevens kunnen niet gewijzigd worden.',
+
+        //     ];
+        //     return response()->json($content, 500);
+        // }
     }
 
     /**
@@ -167,8 +238,29 @@ class PrestatiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+   public function destroy($id)
     {
-        //
+        try {  Log::channel('SummaMove')->info(' prestatie is verwijderd');
+            $data = Prestatie::where('id',$id)->delete();
+            $message = "prestatie is verwijderd";
+            $content = [
+                'success' => true,
+                'data'    => $data,
+                'message' => $message
+            ];
+            return response()->json($content, 200);
+
+        } catch (\Exception $e) {
+            Log::channel('SummaMove')->error('Fout bij het verwijderen van Prestatie: ' . $e->getMessage());
+            $content = [
+                'success' => false,
+                'data'    => null,
+                'message' => 'Er is iets fout gegaan bij het verwijderen van Prestatie'
+
+            ];
+            return response()->json($content, 500);
+
+        }
+
     }
 }
