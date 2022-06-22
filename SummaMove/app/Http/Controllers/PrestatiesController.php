@@ -118,8 +118,64 @@ class PrestatiesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update( Request $request ,Prestatie $Prestatie)
-    {
-    $validator = Validator::make($request->all(), [
+     {
+    //     try{
+            
+    //         Log::channel('SummaMove')->info('Update prestatie ' . $Prestatie->id, ['ip' => $request->ip(), 'data' => $request->all()]);
+    //        $Prestatie->update($request->all());
+    //        $message = "Prestatie is aangepast";
+    //        $content = [
+    //            'success' => true,
+    //            'data'    => $Prestatie,
+    //            'message' => $message,
+    //        ];
+    //        return response()->json($content, 200);
+    //    } catch (\Exception $e) {
+    //        Log::channel('SummaMove')->error('Fout bij het aanpassen van een prestatie: ' . $e->getMessage());
+    //        $content = [
+    //            'success' => false,
+    //            'data'    => null,
+    //            'message' => 'Er is iets fout gegaan bij het aanpassen van een prestatie',
+
+    //        ];
+    //        return response()->json($content, 500);
+           
+    //    }
+    // $validator = Validator::make($request->all(), [
+
+    //             'begintijd' => 'required',
+    //             'eindtijd' => 'required',
+    //             'aantal' => 'required',
+    //             'user_id' => 'required',
+    //             'oefening_id' => 'required',
+    //         ]);
+    //         if ($validator->fails()) {
+    //             Log::error("prestatie wijzigen Fout");
+    //             $content = [
+    //                 'success' => false,
+    //                 'data'    => $request->all(),
+    //                 'foutmelding' => 'Gewijzigde data niet correct',
+
+    //             ];
+    //             return response()->json($content, 400);
+    //         } else {
+
+    //             Log::channel('SummaMove')->info('prestatie geupdate', [$Prestatie->update($request->all())]);
+    //             $content = [
+    //                 'success' => $Prestatie->update($request->all()),
+    //                 'data'    => $request->all(),
+
+    //             ];
+    //             return response()->json($content, 200);
+    //         }
+
+
+    
+
+        try {
+            Log::channel('SummaMove')->info('prestatie geupdate', ['ip' => $request->ip(), 'data' => $request->all()]);
+
+            $validator = Validator::make($request->all(), [
 
                 'begintijd' => 'required',
                 'eindtijd' => 'required',
@@ -131,7 +187,7 @@ class PrestatiesController extends Controller
                 Log::error("prestatie wijzigen Fout");
                 $content = [
                     'success' => false,
-                    'data'    => $request->all(),
+                    'data'    => null,
                     'foutmelding' => 'Gewijzigde data niet correct',
 
                 ];
@@ -140,96 +196,22 @@ class PrestatiesController extends Controller
 
                 Log::channel('SummaMove')->info('prestatie geupdate', [$Prestatie->update($request->all())]);
                 $content = [
-                    'success' => $Prestatie->update($request->all()),
+                    'success' => true,
                     'data'    => $request->all(),
 
                 ];
                 return response()->json($content, 200);
             }
+        } catch (\Exception $e) {
+            Log::channel('SummaMove')->error('Fout bij het update van een prestatie: ' . $e->getMessage());
+            $content = [
+                'success' => false,
+                'data'    => null,
+                'foutmelding' => 'Gegegevens kunnen niet gewijzigd worden.',
 
-
-    //     try {
-    //          request()->validate([
-    //             'begintijd' => 'required',
-    //             'eindtijd' => 'required',
-    //             'aantal' => 'required',
-    //             'user_id' => 'required',
-    //             'oefening_id' => 'required',
-    //       ]);
-
-    //     $Prestatie->update([
-    //         'user_id' => request('user_id'),
-    //         'oefening_id' => request('oefening_id'),
-    //         'begintijd' => request('begintijd'),
-    //         'eindtijd' => request('eindtijd'),
-    //         'aantal' => request('aantal'),
-
-    //     ]);
-    //     $data = $Prestatie;
-    //     $message = "Prestatie is aangepast";
-    //     $content = [
-    //         'success' => true,
-    //         'data'    => $data,
-    //         'message' => $message,
-    //     ];
-    //     return response()->json($content, 200);
-
-    // }
-    //     catch (\Exception $e){
-    //         Log::channel('SummaMove')->error('Fout bij het updaten van een prestatie: ' . $e->getMessage());
-    //         $content = [
-    //             'success' => false,
-    //             'data'    => null,
-    //             'message' => 'Er is iets fout gegaan bij het updaten van een prestatie',
-
-    //         ];
-    //         return response()->json($content, 500);
-    //     }
-
-
-
-
-
-        // try {
-        //     Log::channel('SummaMove')->info('prestatie geupdate', ['ip' => $request->ip(), 'data' => $request->all()]);
-
-        //     $validator = Validator::make($request->all(), [
-
-        //         'begintijd' => 'required',
-        //         'eindtijd' => 'required',
-        //         'aantal' => 'required',
-        //         'user_id' => 'required',
-        //         'oefening_id' => 'required',
-        //     ]);
-        //     if ($validator->fails()) {
-        //         Log::error("prestatie wijzigen Fout");
-        //         $content = [
-        //             'success' => false,
-        //             'data'    => $request->all(),
-        //             'foutmelding' => 'Gewijzigde data niet correct',
-
-        //         ];
-        //         return response()->json($content, 400);
-        //     } else {
-
-        //         Log::channel('SummaMove')->info('prestatie geupdate', [$Prestatie->update($request->all())]);
-        //         $content = [
-        //             'success' => $Prestatie->update($request->all()),
-        //             'data'    => $request->all(),
-
-        //         ];
-        //         return response()->json($content, 200);
-        //     }
-        // } catch (\Exception $e) {
-        //     Log::channel('SummaMove')->error('Fout bij het update van een prestatie: ' . $e->getMessage());
-        //     $content = [
-        //         'success' => false,
-        //         'data'    => null,
-        //         'foutmelding' => 'Gegegevens kunnen niet gewijzigd worden.',
-
-        //     ];
-        //     return response()->json($content, 500);
-        // }
+            ];
+            return response()->json($content, 500);
+        }
     }
 
     /**

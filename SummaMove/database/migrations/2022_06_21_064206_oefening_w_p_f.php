@@ -16,9 +16,8 @@ return new class extends Migration
          Schema::create('oefeningWPF', function (Blueprint $table) {
             $table->id();
             $table->string('naamoefening');
-            $table->string('beschrijving');
+            $table->text('beschrijving');
             $table->binary('foto');
-            $table->timestamps();
         });
     }
 
