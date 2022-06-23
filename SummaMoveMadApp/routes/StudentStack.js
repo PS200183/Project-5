@@ -7,6 +7,7 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 // import HomeScreen from '../view/Student/HomeScreen';
 import LoginStudent from '../view/loginstudent';
 import OefeningScreen from '../view/student/OefeningScreen';
+import OenfeningDetailsScreen from '../view/student/OenfeningDetailsScreen';
 // import favoriteScreen from '../view/Student/favoriteScreen';
 // import begin from '../view/begin';
 // import Aanmelden from '../view/Student/Signup';
@@ -19,6 +20,7 @@ const StudentStack = () => {
     return (
       <Stack.Navigator screenOptions={{ header: () => null }}>
         <Stack.Screen name="Oefening" component={OefeningScreen} />
+        <Stack.Screen name="OefeningDetails" component={OenfeningDetailsScreen} />
       </Stack.Navigator>
     );
 }

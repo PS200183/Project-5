@@ -27,8 +27,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::post('/logout', [AuthenticationController::class, 'logout']);
-    Route::patch('Prestaties/update/{id}', [PrestatiesController::class, 'update']);
-    Route::delete('Prestaties/delete/{id}', [PrestatiesController::class, 'destroy']);
+    // Route::patch('Prestaties/update/{id}', [PrestatiesController::class, 'update']);
+    // Route::delete('Prestaties/delete/{id}', [PrestatiesController::class, 'destroy']);
     Route::apiResource('Prestaties', PrestatiesController::class);
 });
 

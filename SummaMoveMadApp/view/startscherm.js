@@ -26,7 +26,7 @@ const startscherm = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.tekstmiddel} onPress={() => navigation.navigate("Infoapp")}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Infoapp")}>
           <Text style={{ fontWeight: "bold", color: "#fff", fontSize: 18 }}>
               {" "}
               Informatie
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         },
         tekstmiddel: {
         backgroundColor: '#24126E',
-        height: 35,
+        height: 58,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',

@@ -1,91 +1,159 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
-import React, { useState, useEffect } from 'react'
-import { ActivityIndicator, Button, Provider as PaperProvider } from 'react-native-paper';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  SafeAreaView,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 
+const width = Dimensions.get("window").width / 2 - 30;
+const COLORS = {
+  white: "#fff",
+  dark: "#000",
+  red: "#F52A2A",
+  light: "#F1F1F1",
+  green: "#00B761",
+};
 
-const OefeningListScreen = (props) => {
-    const apiOefening = 'http://127.0.0.1:8000/api/oefeningens';
-    const [isOefeningAvailable, setOefeningAvailable] = useState(false);
-    const [oefeningData, setOefeningData] = useState(null);
+const OefeningListScreen = ({ navigation }) => {
+  const [oefeningData, setOefeningData] = useState([]);
 
-    useEffect(() => { GetOefening(); }, []);
+  const getAllOefeningen = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/oefeningens", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
 
-    const BehandelFout = (error) => {
-      console.log(error);
-      setOefeningData(
-        { 
-          status: true,     
-          data: [
-            {name: 'Er is een fout opgetreden. Start de applicatie opnieuw op. ' 
-                  + 'Blijft het probleem optreden, waarschuw dan de service desk.'
-                }
-              ]
-        }
-      )
-    }
-  
-    const GetOefening = () => {
-      fetch(apiOefening)
-        .then((response) => response.json())
-        .then((data) => setOefeningData(data))
-        .catch((error) => BehandelFout(error))
-        .finally(()=>setOefeningAvailable(true));
-    }
-      
-    const RenderOefening = ({ item, index }) => {
-      return (
-        <View style={styles.oefeningItem}>
-          <Pressable onPress={() => props.navigation.push( 'stackVoetbalDetails', {item})}>
-            <Text style={styles.oefeningItemText}>{item.naamoefening}</Text>
-          </Pressable>
-        </View>
-      )
-    }
+      const json = await response.json();
+      console.log(json);
+      if (json.success == true) {
+        const data = json.data;
 
-  return (
-    <PaperProvider>
-    <View style={styles.container}>
-      {isOefeningAvailable
-        ?
-        (
-          <View style={styles.container}>
-            <Text style={styles.header}>Oefeningen: {oefeningData.count}</Text>
-            <FlatList
-              style={styles.oefeningList}
-              data={oefeningData.data}
-              renderItem={RenderOefening}
-              keyExtractor={(item, index) => index}
-              numColumns={2}
-            />
-          </View>
-        )
-        :
-        (
-          <ActivityIndicator style={styles.activityIndicator} color='purple' size={70} />
-        )
+        setOefeningData(data);
+      } else {
+        alert(json.message);
       }
-    </View>
-  </PaperProvider>
-  )
-}
+    } catch (error) {
+      alert("Er is een fout opgetreden");
+      Alert.alert("Er is een fout opgetreden");
+      console.error(error);
+    }
+  };
 
-export default OefeningListScreen
+  useEffect(() => {
+    getAllOefeningen();
+  }, []);
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 2,
-      backgroundColor: 'lightgreen',
-    },
-    activityIndicator : { flex: 2, },
+  const Oefingenview = ({ oefening }) => {
+    return (
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate("OefeningDetails", oefening)}
+      >
+        <View style={style.card}>
+          <View
+            style={{
+              height: 100,
+              alignItems: "center",
+            }}
+          >
+            <Image source={oefening.foto} style={style.Image} />
+          </View>
 
-    oefeningList: {flexGrow: 2, backgroundColor: 'grey', },
+          <Text style={{ fontWeight: "bold", fontSize: 17, marginTop: 10 }}>
+            {oefening.naamoefening}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+  return (
+    <SafeAreaView
+      style={{ flex: 1, paddingHorizontal: 20, backgroundColor: COLORS.white }}
+    >
+      {/* <View style={style.header}>
+        <View>
+          <Text style={{fontSize: 25, fontWeight: 'bold'}}>Welcome to</Text>
+          <Text style={{fontSize: 38, color: COLORS.green, fontWeight: 'bold'}}>
+            Plant Shop
+          </Text>
+        </View>
+        
+      </View> */}
 
-    oefeningItem : { marginHorizontal: 10, width: 175, height: 125, marginVertical: 3, backgroundColor: 'black', },
+      <FlatList
+        columnWrapperStyle={{ justifyContent: "space-between" }}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          marginTop: 10,
+          paddingBottom: 50,
+        }}
+        numColumns={2}
+        data={oefeningData}
+        renderItem={({ item }) => {
+          return <Oefingenview oefening={item} />;
+        }}
+      />
+    </SafeAreaView>
+  );
+};
 
-    oefeningItemText: { fontSize: 15, color: 'wheat', padding: 10},
+const style = StyleSheet.create({
+  card: {
+    height: 225,
+    backgroundColor: COLORS.light,
+    width,
+    marginHorizontal: 2,
+    borderRadius: 10,
+    marginBottom: 20,
+    padding: 15,
+  },
+  header: {
+    marginTop: 30,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 
-    navButtons: { flexDirection: 'row', alignSelf: 'center', },
+  Image: {
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    marginTop: 10,
+    flex: 1,
+    resizeMode: "contain",
+  },
+});
 
-    button: { flexGrow: 2, marginHorizontal: 10, },
-  
-  });
+export default OefeningListScreen;
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 2,
+//     backgroundColor: "lightgreen",
+//   },
+//   activityIndicator: { flex: 2 },
+
+//   oefeningList: { flexGrow: 2, backgroundColor: "grey" },
+
+//   oefeningItem: {
+//     marginHorizontal: 10,
+//     width: 175,
+//     height: 125,
+//     marginVertical: 3,
+//     backgroundColor: "black",
+//   },
+
+//   oefeningItemText: { fontSize: 15, color: "wheat", padding: 10 },
+
+//   navButtons: { flexDirection: "row", alignSelf: "center" },
+
+//   button: { flexGrow: 2, marginHorizontal: 10 },
+// });
