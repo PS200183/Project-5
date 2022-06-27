@@ -3,26 +3,79 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-// import DetailsScreen from '../view/Student/DetailsScreen';
-// import HomeScreen from '../view/Student/HomeScreen';
+
 import LoginStudent from '../view/loginstudent';
 import OefeningScreen from '../view/student/OefeningScreen';
 import OenfeningDetailsScreen from '../view/student/OenfeningDetailsScreen';
-// import favoriteScreen from '../view/Student/favoriteScreen';
-// import begin from '../view/begin';
-// import Aanmelden from '../view/Student/Signup';
+import Prestaties from '../view/PrestatiesScreens/Prestaties';
 
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { DefaultTheme } from "@react-navigation/native";
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: "rgb(255, 45, 85)",
+  },
+};
 const Stack = createStackNavigator();
-
+ 
+const Tab = createMaterialBottomTabNavigator();
+const OefeningStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ header: () => null }}>
+      <Stack.Screen name="Oefening" component={OefeningScreen} />
+      <Stack.Screen name="OefeningDetails" component={OenfeningDetailsScreen} />
+    </Stack.Navigator>
+  );
+};
 
 const StudentStack = () => {
 
     return (
-      <Stack.Navigator screenOptions={{ header: () => null }}>
-        <Stack.Screen name="Oefening" component={OefeningScreen} />
-        <Stack.Screen name="OefeningDetails" component={OenfeningDetailsScreen} />
-      </Stack.Navigator>
+      <Tab.Navigator
+        activeColor="#D70073"
+        shifting={true}
+        barStyle={{ backgroundColor: "#24126E" }}
+      >
+        <Tab.Screen
+          name="Oefeningen"
+          component={OefeningStack}
+          options={{
+            tabBarIcon: () => (
+              <MaterialCommunityIcons name="arm-flex" size={30} color="black" />
+            ),
+            globalScreenOptions,
+          }}
+        />
+        <Tab.Screen
+          name="Prestaties"
+          component={PrestatiesStack}
+          options={{
+            tabBarIcon: () => (
+              <MaterialCommunityIcons name="av-timer" size={30} color="black" />
+            ),
+            globalScreenOptions,
+          }}
+        />
+      </Tab.Navigator>
     );
 }
+
+const globalScreenOptions = {
+  headerStyle: { backgroundColor: "black" },
+  headerTitleStyle: { color: "white" },
+  headerTintColor: "white",
+};
+const PrestatiesStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ header: () => null }}>
+      <Stack.Screen name="Home" component={Prestaties} />
+      
+    </Stack.Navigator>
+  );
+};
+
 
 export default StudentStack

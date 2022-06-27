@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import Icon from "react-native-vector-icons/MaterialIcons";
+
 
 const width = Dimensions.get('window').width / 2 - 30;
 const COLORS = {
@@ -66,43 +68,38 @@ const OenfeningGastenScreen = ({navigation}) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => navigation.navigate('OefeningDetails', oefening)}>
+        onPress={() => navigation.navigate("OefeningDetails", oefening)}
+      >
         <View style={style.card}>
-      
+          
           <View
             style={{
               height: 100,
-              alignItems: 'center',
-            }}>
-            <Image
-              source={oefening.foto}
-              style={style.Image }
-            />
+              alignItems: "center",
+            }}
+          >
+            <Image source={oefening.foto} style={style.Image} />
           </View>
 
-          <Text style={{fontWeight: 'bold', fontSize: 17, marginTop: 10}}>
+          <Text style={{ fontWeight: "bold", fontSize: 17, marginTop: 10 }}>
             {oefening.naamoefening}
           </Text>
-         
         </View>
       </TouchableOpacity>
     );
   };
   return (
     <SafeAreaView
-      style={{flex: 1, paddingHorizontal: 20, backgroundColor: COLORS.white}}>
-      {/* <View style={style.header}>
-        <View>
-          <Text style={{fontSize: 25, fontWeight: 'bold'}}>Welcome to</Text>
-          <Text style={{fontSize: 38, color: COLORS.green, fontWeight: 'bold'}}>
-            Plant Shop
-          </Text>
-        </View>
-        
-      </View> */}
-      
+      style={{ flex: 1, paddingHorizontal: 20, backgroundColor: COLORS.white }}
+    >
+      <Icon
+        name="arrow-back"
+        size={30}
+        color={COLORS.dark}
+        onPress={() => navigation.goBack()}
+      />
       <FlatList
-        columnWrapperStyle={{justifyContent: 'space-between'}}
+        columnWrapperStyle={{ justifyContent: "space-between" }}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           marginTop: 10,
@@ -110,7 +107,7 @@ const OenfeningGastenScreen = ({navigation}) => {
         }}
         numColumns={2}
         data={oefeningData}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return <Oefingenview oefening={item} />;
         }}
       />
@@ -119,7 +116,6 @@ const OenfeningGastenScreen = ({navigation}) => {
 };
 
 const style = StyleSheet.create({
- 
   card: {
     height: 225,
     backgroundColor: COLORS.light,
@@ -131,19 +127,18 @@ const style = StyleSheet.create({
   },
   header: {
     marginTop: 30,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 
-  Image:{
+  Image: {
     height: 100,
     width: 100,
     borderRadius: 10,
     marginTop: 10,
-    flex: 1, 
-    resizeMode: 'contain',
-    
-  }
+    flex: 1,
+    resizeMode: "contain",
+  },
 });
 
 export default OenfeningGastenScreen

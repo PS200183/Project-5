@@ -1,11 +1,26 @@
-import { StyleSheet, Text, View, TouchableOpacity ,Dimensions ,SafeAreaView , StatusBar} from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+  SafeAreaView,
+  StatusBar,
+  Image,
+} from "react-native";
 import React from 'react'
+
 const height = Dimensions.get("window").height / 2 - 30;
 const startscherm = ({ navigation }) => {
     return (
       <View style={styles.container}>
         <View style={styles.whiteSheet} />
+
         <SafeAreaView style={styles.form}>
+          <Image
+            source={require("../assets/summamove.png")}
+            style={{ width: "100%", height: 200, resizeMode: "contain" }}
+          />
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate("LoginStudent")}
@@ -25,16 +40,18 @@ const startscherm = ({ navigation }) => {
               Gasten
             </Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Infoapp")}>
-          <Text style={{ fontWeight: "bold", color: "#fff", fontSize: 18 }}>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("Infoapp")}
+          >
+            <Text style={{ fontWeight: "bold", color: "#fff", fontSize: 18 }}>
               {" "}
               Informatie
             </Text>
-            </TouchableOpacity>
-
+          </TouchableOpacity>
         </SafeAreaView>
-        
+
         <StatusBar barStyle="light-content" />
       </View>
     );
@@ -67,6 +84,10 @@ const styles = StyleSheet.create({
           justifyContent: 'center',
           alignItems: 'center',
           marginTop: 40,
+          marginBottom: 10,
+          alignContent: 'center',
+          
+          
         },
         tekstmiddel: {
         backgroundColor: '#24126E',

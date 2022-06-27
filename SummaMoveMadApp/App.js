@@ -15,7 +15,7 @@ import StartScherm from "./view/startscherm.js";
 import Infoapp from "./view/Infoapp.js";
 import LoginStudent from "./view/loginstudent.js";
 import GastenStack from "./routes/GastenStack.js";
-import OefeningScreen from "./view/student/OefeningScreen";
+import { GebuikerProviders } from "./localData/gebruikergegevens.js";
 
 const BegginStack = () => {
   return (
@@ -36,7 +36,7 @@ const BegginStack = () => {
       <Stack.Screen name="StartScherm" component={StartScherm} />
       <Stack.Screen name="Gasten" component={GastenStack} />
 
-      <Stack.Screen name="stackVoetbalDetails" component={OefeningScreen} />
+      {/* <Stack.Screen name="stackVoetbalDetails" component={OefeningScreen} /> */}
       <Stack.Screen name="LoginStudent" component={LoginStudent} />
       <Stack.Screen name="Infoapp" component={Infoapp} />
       <Stack.Screen name="Studenten" component={StudentStack} />
@@ -46,9 +46,11 @@ const BegginStack = () => {
 
 const App = ({ navigation }) => {
   return (
-    <NavigationContainer>
-      <BegginStack />
-    </NavigationContainer>
+    <GebuikerProviders>
+      <NavigationContainer>
+        <BegginStack />
+      </NavigationContainer>
+    </GebuikerProviders>
   );
 };
 

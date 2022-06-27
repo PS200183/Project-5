@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View, Button, TextInput, Image, SafeAreaView, TouchableOpacity, StatusBar, Alert } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { GebuikerContest } from "../localData/gebruikergegevens";
 
 const Login = ({ navigation }) => {
-  const [User, setUser] = useState([]);
+  const {  setGebuiker } = useContext(GebuikerContest);
+  // const [User, setUser] = useState([]);
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 
@@ -28,13 +30,10 @@ const Login = ({ navigation }) => {
       if (response.status == 200) {
 
         const data = await response.json();
-        setUser(data);
+        //setUser(data);
         console.log(data);
-
-        navigation.navigate("Studenten", {
-          screen: "Oefening",
-          params: { user_id: data.user.id, access_token: data.access_token },
-        });
+        setGebuiker(data);    
+        navigation.navigate("Studenten");
       }
       else {
         setaccess_token(json.access_token);

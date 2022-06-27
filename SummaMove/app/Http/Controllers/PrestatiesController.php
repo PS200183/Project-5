@@ -22,16 +22,15 @@ class PrestatiesController extends Controller
         try {
             if ($request->has('User')) {
                 Log::channel('SummaMove')->info('Haal Prestaties op van gebruiker met ID: ' . $request->User);
-                $data =  Prestatie::where('user_id', $request->User)->get();
+                $data = DB::select('SELECT  prestaties.id , prestaties.User_id , prestaties.oefening_id, prestaties.begintijd , prestaties.eindtijd , prestaties.aantal ,oefeningens.naamoefening FROM prestaties INNER JOIN oefeningens ON oefeningens.id = prestaties.oefening_id WHERE prestaties.user_id = ?', [$request->User]);
                 $message = 'Prestatie opgehaald';
             } else if ($request->has('Oefening') && $request->has('User')) {
 
                 Log::channel('SummaMove')->info('Haal Prestaties op van gebruiker met ID: ' . $request->User . ' voor oefening met ID: ' . $request->Oefening);
-                $data =  Prestatie::where('user_id', $request->User)->where('oefening_id', $request->Oefening)->get();
+                $data =  DB::select('SELECT  prestaties.id , prestaties.User_id , prestaties.oefening_id, prestaties.begintijd , prestaties.eindtijd , prestaties.aantal ,oefeningens.naamoefening FROM prestaties INNER JOIN oefeningens ON oefeningens.id = prestaties.oefening_id WHERE prestaties.user_id = ?  AND prestaties.oefening_id =', [$request->User , $request->Oefening]);
                 $message = 'Prestatie opgehaald';
             }
-                $data =  Prestatie::all();
-                $message = 'Prestatie opgehaald';
+
             $content = [
                 'success' => true,
                 'data'    => $data,
@@ -121,28 +120,28 @@ class PrestatiesController extends Controller
      */
     public function update(Request $request, Prestatie $prestatie, $id)
     {
-        // try {
-        //     Log::channel('APi')->info('hier laten we een prestatie updaten');
-        //     $prestatie = Prestatie::find($id);
-        //     $prestatie->update($request->all());
-        //     return $prestatie;
-        //     $message = "prestatie is geupdate";
-        //     $content = [
-        //         'success' => true,
-        //         'data'    => $prestatie,
-        //         'message' => $message
-        //     ];
-        //     return response()->json($content, 300);
-        // } catch (\Exception $e) {
-        //     Log::channel('APi')->error('Fout bij het updaten van Prestatie: ' . $e->getMessage());
-        //     $content = [
-        //         'success' => false,
-        //         'data'    => null,
-        //         'message' => 'Er is iets fout gegaan bij het updaten van Prestatie'
+        try {
+            Log::channel('SummaMove')->info('hier laten we een prestatie updaten');
+            $prestatie = Prestatie::find($id);
+            $prestatie->update($request->all());
+            // return $prestatie;
+            $message = "prestatie is geupdate";
+            $content = [
+                'success' => true,
+                'data'    => $prestatie,
+                'message' => $message
+            ];
+            return response()->json($content, 300);
+        } catch (\Exception $e) {
+            Log::channel('SummaMove')->error('Fout bij het updaten van Prestatie: ' . $e->getMessage());
+            $content = [
+                'success' => false,
+                'data'    => null,
+                'message' => 'Er is iets fout gegaan bij het updaten van Prestatie'
 
-        //     ];
-        //     return response()->json($content, 500);
-        // }
+            ];
+            return response()->json($content, 500);
+        }
 
 
 
@@ -150,48 +149,48 @@ class PrestatiesController extends Controller
         // return $prestatie;
 ///////////////////////////////////////
 
-if ($id != $request->id) {
-    throw new exception('id in url en id in request komen niet overeen');
-}
+// if ($id != $request->id) {
+//     throw new exception('id in url en id in request komen niet overeen');
+// }
 
-        $validator = Validator::make($request->all(), [
+        // $validator = Validator::make($request->all(), [
 
-                'begintijd' => 'required',
-                'eindtijd' => 'required',
-                'aantal' => 'required',
-                'user_id' => 'required',
-                'oefening_id' => 'required',
-            ]);
-            if ($validator->fails()) {
-                Log::error("prestatie wijzigen Fout");
-                $content = [
-                    'success' => false,
-                    'data'    => $request->all(),
-                    'message' => 'Er is iets fout gegaan bij het wijzigen van de prestatie'
-                ];
-
-
-                return response()->json($content, 400);
-            } else {
+        //         'begintijd' => 'required',
+        //         'eindtijd' => 'required',
+        //         'aantal' => 'required',
+        //         'user_id' => 'required',
+        //         'oefening_id' => 'required',
+        //     ]);
+        //     if ($validator->fails()) {
+        //         Log::error("prestatie wijzigen Fout");
+        //         $content = [
+        //             'success' => false,
+        //             'data'    => $request->all(),
+        //             'message' => 'Er is iets fout gegaan bij het wijzigen van de prestatie'
+        //         ];
 
 
-                Log::channel('SummaMove')->info('prestatie geupdate', $request->all());
-
-                // Prestatie::update($request->all());
-                // return $request->all();
-                $prestatie = Prestatie::find($id);
-                //dd($prestatie);
-                //dd($id);
-                $content = [
-                    'success' => $prestatie->update($request->all()),
-                    'data'    => $request->all(),
-                    'message' => 'prestatie is geupdate',
-
-                ];
+        //         return response()->json($content, 400);
+        //     } else {
 
 
-                return response()->json($content, 200);
-            }
+        //         Log::channel('SummaMove')->info('prestatie geupdate', $request->all());
+
+        //         // Prestatie::update($request->all());
+        //         // return $request->all();
+        //         $prestatie = Prestatie::find($id);
+        //         //dd($prestatie);
+        //         //dd($id);
+        //         $content = [
+        //             'success' => $prestatie->update($request->all()),
+        //             'data'    => $request->all(),
+        //             'message' => 'prestatie is geupdate',
+
+        //         ];
+
+
+        //         return response()->json($content, 200);
+        //     }
 
     }
 

@@ -79,15 +79,7 @@ const OefeningListScreen = ({ navigation }) => {
     <SafeAreaView
       style={{ flex: 1, paddingHorizontal: 20, backgroundColor: COLORS.white }}
     >
-      {/* <View style={style.header}>
-        <View>
-          <Text style={{fontSize: 25, fontWeight: 'bold'}}>Welcome to</Text>
-          <Text style={{fontSize: 38, color: COLORS.green, fontWeight: 'bold'}}>
-            Plant Shop
-          </Text>
-        </View>
-        
-      </View> */}
+     
 
       <FlatList
         columnWrapperStyle={{ justifyContent: "space-between" }}
@@ -134,26 +126,3 @@ const style = StyleSheet.create({
 
 export default OefeningListScreen;
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 2,
-//     backgroundColor: "lightgreen",
-//   },
-//   activityIndicator: { flex: 2 },
-
-//   oefeningList: { flexGrow: 2, backgroundColor: "grey" },
-
-//   oefeningItem: {
-//     marginHorizontal: 10,
-//     width: 175,
-//     height: 125,
-//     marginVertical: 3,
-//     backgroundColor: "black",
-//   },
-
-//   oefeningItemText: { fontSize: 15, color: "wheat", padding: 10 },
-
-//   navButtons: { flexDirection: "row", alignSelf: "center" },
-
-//   button: { flexGrow: 2, marginHorizontal: 10 },
-// });
