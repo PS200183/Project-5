@@ -22,6 +22,12 @@ class prestatiesSeeder extends Seeder
                 'aantal' => "1",
                 'oefening_id' => "1",
                 'user_id' => "1",   
+            ], [
+                'begintijd' => "12:00",
+                'eindtijd' => "14:00",
+                'aantal' => "1",
+                'oefening_id' => "2",
+                'user_id' => "1",   
             ]
             ]);
     }
