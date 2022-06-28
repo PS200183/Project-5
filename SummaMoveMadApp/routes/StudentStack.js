@@ -1,13 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
-import LoginStudent from '../view/loginstudent';
-import OefeningScreen from '../view/student/OefeningScreen';
-import OenfeningDetailsScreen from '../view/student/OenfeningDetailsScreen';
-import Prestaties from '../view/PrestatiesScreens/Prestaties';
+import OefeningScreen from "../view/student/OefeningScreen";
+import OenfeningDetailsScreen from "../view/student/OenfeningDetailsScreen";
+import Prestaties from "../view/PrestatiesScreens/Prestaties";
+import Prestatiesverwijderen from "../view/PrestatiesScreens/Prestatiesverwijderen";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { DefaultTheme } from "@react-navigation/native";
@@ -20,7 +19,7 @@ const MyTheme = {
   },
 };
 const Stack = createStackNavigator();
- 
+
 const Tab = createMaterialBottomTabNavigator();
 const OefeningStack = () => {
   return (
@@ -32,36 +31,35 @@ const OefeningStack = () => {
 };
 
 const StudentStack = () => {
-
-    return (
-      <Tab.Navigator
-        activeColor="#D70073"
-        shifting={true}
-        barStyle={{ backgroundColor: "#24126E" }}
-      >
-        <Tab.Screen
-          name="Oefeningen"
-          component={OefeningStack}
-          options={{
-            tabBarIcon: () => (
-              <MaterialCommunityIcons name="arm-flex" size={30} color="black" />
-            ),
-            globalScreenOptions,
-          }}
-        />
-        <Tab.Screen
-          name="Prestaties"
-          component={PrestatiesStack}
-          options={{
-            tabBarIcon: () => (
-              <MaterialCommunityIcons name="av-timer" size={30} color="black" />
-            ),
-            globalScreenOptions,
-          }}
-        />
-      </Tab.Navigator>
-    );
-}
+  return (
+    <Tab.Navigator
+      activeColor="#D70073"
+      shifting={true}
+      barStyle={{ backgroundColor: "#24126E" }}
+    >
+      <Tab.Screen
+        name="Oefeningen"
+        component={OefeningStack}
+        options={{
+          tabBarIcon: () => (
+            <MaterialCommunityIcons name="arm-flex" size={30} color="black" />
+          ),
+          globalScreenOptions,
+        }}
+      />
+      <Tab.Screen
+        name="Prestaties"
+        component={PrestatiesStack}
+        options={{
+          tabBarIcon: () => (
+            <MaterialCommunityIcons name="av-timer" size={30} color="black" />
+          ),
+          globalScreenOptions,
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 
 const globalScreenOptions = {
   headerStyle: { backgroundColor: "black" },
@@ -72,10 +70,12 @@ const PrestatiesStack = () => {
   return (
     <Stack.Navigator screenOptions={{ header: () => null }}>
       <Stack.Screen name="Home" component={Prestaties} />
-      
+      <Stack.Screen
+        name="Prestatiesverwijderen"
+        component={Prestatiesverwijderen}
+      />
     </Stack.Navigator>
   );
 };
 
-
-export default StudentStack
+export default StudentStack;

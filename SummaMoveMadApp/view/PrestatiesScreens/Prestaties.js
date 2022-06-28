@@ -80,7 +80,10 @@ const Prestaties = ({ navigation }) => {
         <Button
           title="Delete"
           color="#24126E"
-          onPress={() => alert("Delete")}
+          onPress={() =>
+            navigation.navigate("Prestatiesverwijderen", {
+              prestatie: prestatie,
+            }) }
         ></Button>
       </View>
     );
