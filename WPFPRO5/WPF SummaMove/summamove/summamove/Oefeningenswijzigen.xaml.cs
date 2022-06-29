@@ -55,8 +55,8 @@ namespace summamove
                 Oefeningens.Add(oefeningen);
                 TBNaam.Text = oefeningen.Naam;
                 TBBeschrijving.Text = oefeningen.Beschrijving;
-                foto = oefeningen.Foto;
-
+                //foto = oefeningen.Foto;
+                TBFoto.Text = oefeningen.Foto;
 
 
 
@@ -69,7 +69,7 @@ namespace summamove
         {
             try
             {
-                if (!dB.UpdateOefeningens(id, TBNaam.Text, TBBeschrijving.Text, foto))
+                if (!dB.UpdateOefeningens(id, TBNaam.Text, TBBeschrijving.Text, TBFoto.Text))
                 {
                     MessageBox.Show("Er is een fout bij het update");
                     return;
@@ -82,20 +82,16 @@ namespace summamove
             }
         }
 
-        private void Selectpicture_Click(object sender, RoutedEventArgs e)
+        private void TBFoto_TextChanged(object sender, TextChangedEventArgs e)
         {
-            OpenFileDialog op = new OpenFileDialog();
-            op.Title = "Select a picture";
-            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
-                "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
-                "Portable Network Graphic (*.png)|*.png";
-
-            if (op.ShowDialog() == true)
+            try
+            {
+                //Oefeningens.Foto = new BitmapImage(new Uri(TBFoto.Text));
+                Foto.Source = new BitmapImage(new Uri(TBFoto.Text));
+            }
+            catch (Exception)
             {
 
-                Foto.Source = new BitmapImage(new Uri(op.FileName));
-                foto = File.ReadAllBytes(op.FileName);
-               
             }
         }
     }

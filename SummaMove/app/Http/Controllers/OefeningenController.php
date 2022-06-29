@@ -34,4 +34,36 @@ class OefeningenController extends Controller
         }
 
     }
+    public function store(Request $request)
+    {
+        try {
+
+            Log::channel('SummaMove')->info('Maak een nieuwe Oefening aan');
+            $data = Oefeningen::create($request->all());
+            // $oefening = new Oefeningen();
+            // $oefening->naamoefening = $request->naamoefening;
+            // $oefening->beschrijving = $request->beschrijving;
+            // $oefening->aantal = $request->aantal;
+            // $oefening->afbeelding = $request->afbeelding;
+            // $oefening->categorie = $request->categorie;
+            // $oefening->user_id = $request->user_id;
+            // $oefening->create();
+            $message = "Oefening is aangemaakt";
+            $content = [
+                'success' => true,
+                'data'    => $data,
+                'message' => $message,
+            ];
+            return response()->json($content, 200);
+        }
+        catch (\Exception $e) {
+            Log::channel('SummaMove')->error('Fout bij het aanmaken van de Oefening: ' . $e->getMessage());
+            $content = [
+                'success' => false,
+                'data'    => null,
+                'message' => 'Er is iets fout gegaan bij het aanmaken van de Oefening'
+            ];
+            return response()->json($content, 500);
+    }}
+
 }

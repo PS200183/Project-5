@@ -72,7 +72,13 @@ const Prestaties = ({ navigation }) => {
           padding: 5,
         }}
       >
-        <TouchableOpacity onPress={() => alert("Update")}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("Prestatiesupdate", {
+              prestatie: prestatie,
+            })
+          }
+        >
           <Text style={{ fontWeight: "bold", height: 30 }}>
             {prestatie.naamoefening}
           </Text>
@@ -83,7 +89,8 @@ const Prestaties = ({ navigation }) => {
           onPress={() =>
             navigation.navigate("Prestatiesverwijderen", {
               prestatie: prestatie,
-            }) }
+            })
+          }
         ></Button>
       </View>
     );
@@ -91,11 +98,9 @@ const Prestaties = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-       
-
         <View>
           <TouchableOpacity
-            onPress={() =>  alert("Create")}
+            onPress={() => navigation.navigate("Prestatiesaanmaken")}
           >
             <Icon name="add" size={18} color={COLORS.black} />
           </TouchableOpacity>

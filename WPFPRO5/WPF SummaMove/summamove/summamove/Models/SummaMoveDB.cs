@@ -191,7 +191,7 @@ namespace summamove.Models
 
                 conn.Open();
                 MySqlCommand sql = conn.CreateCommand();
-                sql.CommandText = "SELECT * FROM oefeningwpf WHERE id = @ID ";
+                sql.CommandText = "SELECT * FROM oefeningens WHERE id = @ID ";
                 sql.Parameters.AddWithValue("@ID", ID);
                 MySqlDataReader reader = sql.ExecuteReader();
                 DataTable table = new DataTable();
@@ -202,7 +202,7 @@ namespace summamove.Models
                     oefeningen.ID = (int)row["id"];
                     oefeningen.Naam = (string)row["naamoefening"];
                     oefeningen.Beschrijving = (string)row["beschrijving"];
-                    oefeningen.Foto = (byte[])row["foto"];
+                    oefeningen.Foto = (string)row["foto"];
                 }
             }
             catch (Exception e)
@@ -230,7 +230,7 @@ namespace summamove.Models
             {
                 conn.Open();
                 MySqlCommand sql = conn.CreateCommand();
-                sql.CommandText = "SELECT * FROM oefeningwpf";
+                sql.CommandText = "SELECT * FROM oefeningens";
                 MySqlDataReader reader = sql.ExecuteReader();
                 DataTable table = new DataTable();
                 table.Load(reader);
@@ -241,7 +241,7 @@ namespace summamove.Models
                     comet.ID = (int)row["id"];
                     comet.Naam = (string)row["naamoefening"];
                     comet.Beschrijving = (string)row["beschrijving"];
-                    comet.Foto = (byte[])row["foto"];
+                    comet.Foto = (string)row["foto"];
 
 
 
@@ -265,7 +265,7 @@ namespace summamove.Models
             return oefeningen;
         }
 
-        public bool InsertOefeningens(string Naam, string Beschrijving, byte[] Foto)
+        public bool InsertOefeningens(string Naam, string Beschrijving, string Foto)
         {
             bool result = false;
             try
@@ -273,7 +273,7 @@ namespace summamove.Models
                 conn.Open();
                 MySqlCommand sql = conn.CreateCommand();
                 sql.CommandText =
-                    "INSERT INTO oefeningwpf( naamoefening , beschrijving , foto )" +
+                    "INSERT INTO oefeningens( naamoefening , beschrijving , foto )" +
                     " VALUES(@Naam, @Beschrijving , @Foto)";
                 sql.Parameters.AddWithValue("@Naam", Naam);
                 sql.Parameters.AddWithValue("@Beschrijving", Beschrijving);
@@ -297,14 +297,14 @@ namespace summamove.Models
         }
 
 
-        public bool UpdateOefeningens(int ID, string Naam, string Beschrijving, byte[] Foto)
+        public bool UpdateOefeningens(int ID, string Naam, string Beschrijving, string Foto)
         {
             bool result = false;
             try
             {
                 conn.Open();
                 MySqlCommand sql = conn.CreateCommand();
-                sql.CommandText = "UPDATE  oefeningwpf  SET  naamoefening = @Naam , beschrijving = @Beschrijving , foto = @Foto  WHERE id  = @ID";
+                sql.CommandText = "UPDATE  oefeningens  SET  naamoefening = @Naam , beschrijving = @Beschrijving , foto = @Foto  WHERE id  = @ID";
                 sql.Parameters.AddWithValue("@ID", ID);
                 sql.Parameters.AddWithValue("@naam", Naam);
                 sql.Parameters.AddWithValue("@beschrijving", Beschrijving);
@@ -334,7 +334,7 @@ namespace summamove.Models
                 conn.Open();
                 MySqlCommand sql = conn.CreateCommand();
                 sql.CommandText =
-                    " DELETE FROM oefeningwpf WHERE  id = @ID";
+                    " DELETE FROM oefeningens WHERE  id = @ID";
                 sql.Parameters.AddWithValue("@ID", id);
 
                 result = sql.ExecuteNonQuery() == 1;

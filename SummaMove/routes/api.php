@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Route::patch('Prestaties/update/{id}', [PrestatiesController::class, 'update']);
     // Route::delete('Prestaties/delete/{id}', [PrestatiesController::class, 'destroy']);
     Route::apiResource('Prestaties', PrestatiesController::class);
+    Route::apiResource('oefeningens', OefeningenController::class)->only(['store']);
 });
 
 

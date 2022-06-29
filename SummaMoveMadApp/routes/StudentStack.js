@@ -6,8 +6,9 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import OefeningScreen from "../view/student/OefeningScreen";
 import OenfeningDetailsScreen from "../view/student/OenfeningDetailsScreen";
 import Prestaties from "../view/PrestatiesScreens/Prestaties";
+import Prestatiesaanmaken from "../view/PrestatiesScreens/Prestatiesaanmaken";
 import Prestatiesverwijderen from "../view/PrestatiesScreens/Prestatiesverwijderen";
-
+import Prestatiesupdaten from "../view/PrestatiesScreens/Prestatiesupdaten";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { DefaultTheme } from "@react-navigation/native";
 
@@ -74,6 +75,8 @@ const PrestatiesStack = () => {
         name="Prestatiesverwijderen"
         component={Prestatiesverwijderen}
       />
+      <Stack.Screen name="Prestatiesupdate" component={Prestatiesupdaten} />
+      <Stack.Screen name="Prestatiesaanmaken" component={Prestatiesaanmaken} />
     </Stack.Navigator>
   );
 };

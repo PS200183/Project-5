@@ -73,13 +73,15 @@
                     <TextBlock Margin="0,0,0,0" FontSize="20">Beschrijving</TextBlock>
                     <TextBox x:Name="TBBeschrijving" Background="White" FontSize="20" Height="200" Width="324" TextWrapping="Wrap"></TextBox>
                 </DockPanel>
-
+                <DockPanel>
+                    <TextBlock Margin="50,0,0,0" FontSize="20">URL</TextBlock>
+                    <TextBox x:Name="TBFoto" Background="White" FontSize="20" Width="301" TextChanged="TBFoto_TextChanged"></TextBox>
+                </DockPanel>
                 <Button x:Name="BTOpslaan" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Opslaan" FontSize="20" Margin="0,10,0,0" Click="BTOpslaan_Click"/>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="2"  VerticalAlignment="Center" DataContext="{Binding Oefeningens}">
                 <Image  Source="{Binding Foto}" x:Name="Foto" Height="300" Width="300"></Image>
-                <Button VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="Selectpicture" Click="Selectpicture_Click" >Select a picture</Button>
             </StackPanel>
 
 
