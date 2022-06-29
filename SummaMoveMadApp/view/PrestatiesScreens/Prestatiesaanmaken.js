@@ -11,108 +11,104 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { GebuikerContest } from "../../localData/gebruikergegevens";
 
-const Prestatiesaanmaken = ({navigation}) => {
- const [choosenValue, setChoosenValue] = useState(1);
+const Prestatiesaanmaken = ({ navigation }) => {
+  const [choosenValue, setChoosenValue] = useState(1);
   const [choosenIndex, setChoosenIndex] = useState(1);
-    const [prestatie, setprestatie] = useState({
-      eindtijd: "",
-      aantal: "",
-      begintijd: "",
-      oefening_id:""
-    });
+  const [prestatie, setprestatie] = useState({
+    eindtijd: "",
+    aantal: "",
+    begintijd: "",
+    oefening_id: "",
+  });
   const [loading, setLoading] = useState(false);
   const [oefeningData, setOefeningData] = useState([]);
 
-  const onChangeeindtijd = (value) => {;
-     setprestatie({ ...prestatie, eindtijd: value });
-   };
+  const onChangeeindtijd = (value) => {
+    setprestatie({ ...prestatie, eindtijd: value });
+  };
 
-   const onChangebegintijd = (value) => {
+  const onChangebegintijd = (value) => {
     setprestatie({ ...prestatie, begintijd: value });
-   };
+  };
 
-   const onChangeaantal = (value) => {
+  const onChangeaantal = (value) => {
     setprestatie({ ...prestatie, aantal: value });
   };
-   const { Gebuiker } = useContext(GebuikerContest);
-  
+  const { Gebuiker } = useContext(GebuikerContest);
+
   console.log(Gebuiker);
-    const getAllOefeningen = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/api/oefeningens", {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        });
+  const getAllOefeningen = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/oefeningens", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
 
-        const json = await response.json();
-        console.log(json);
-        if (json.success == true) {
-          const data = json.data;
+      const json = await response.json();
+      console.log(json);
+      if (json.success == true) {
+        const data = json.data;
 
-          setOefeningData(data);
-        } else {
-          alert(json.message);
-        }
-      } catch (error) {
-        alert("Er is een fout opgetreden");
-        Alert.alert("Er is een fout opgetreden");
-        console.error(error);
+        setOefeningData(data);
+      } else {
+        alert(json.message);
       }
+    } catch (error) {
+      alert("Er is een fout opgetreden");
+      Alert.alert("Er is een fout opgetreden");
+      console.error(error);
+    }
+  };
+
+  const saveData = async () => {
+    setLoading(true);
+    var myHeaders = new Headers();
+
+    myHeaders.append("Content-Type", "application/json");
+    let requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: "Bearer " + Gebuiker.access_token,
+      },
+      body: JSON.stringify({
+        begintijd: prestatie.begintijd,
+        eindtijd: prestatie.eindtijd,
+        aantal: parseInt(prestatie.aantal),
+        oefening_id: prestatie.oefening_id,
+        user_id: parseInt(Gebuiker.user.id),
+      }),
     };
-
-  
-  
-  
-   const saveData = async () => {
-     setLoading(true);
-     var myHeaders = new Headers();
-
-     myHeaders.append("Content-Type", "application/json");
-     let requestOptions = {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-         Accept: "application/json",
-         Authorization: "Bearer " + Gebuiker.access_token,
-       },
-       body: JSON.stringify({
-         begintijd: prestatie.begintijd,
-         eindtijd: prestatie.eindtijd,
-         aantal: parseInt(prestatie.aantal),
-         oefening_id: prestatie.oefening_id,
-         user_id: parseInt(Gebuiker.user.id),
-       }),
-     };
-     try {
-       const response = await fetch(
-         "http://127.0.0.1:8000/api/Prestaties",
-         requestOptions
-       );
-       const json = await response.json();
-       console.log(json);
-       if (json.success == true) {
-       setLoading(false);
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/Prestaties",
+        requestOptions
+      );
+      const json = await response.json();
+      console.log(json);
+      if (json.success == true) {
+        setLoading(false);
         //  navigation.navigate("Home");
-         navigation.goBack();
-       } else {
-         setLoading(false);
-         alert("Er is een fout opgetreden probeer het opnieuw");
-         Alert.alert("Er is een fout opgetreden probeer het opnieuw");
-       }
-     } catch (error) {
-       alert("Er is een fout opgetreden");
-       Alert.alert("Er is een fout opgetreden");
-       console.error(error);
-     }
-   };
+        navigation.goBack();
+      } else {
+        setLoading(false);
+        alert("Er is een fout opgetreden probeer het opnieuw");
+        Alert.alert("Er is een fout opgetreden probeer het opnieuw");
+      }
+    } catch (error) {
+      alert("Er is een fout opgetreden");
+      Alert.alert("Er is een fout opgetreden");
+      console.error(error);
+    }
+  };
 
-  
-    useEffect(() => {
-      getAllOefeningen();
-    }, []);
+  useEffect(() => {
+    getAllOefeningen();
+  }, []);
   const Opslaan = () => {
     if (
       prestatie.eindtijd == "" ||
@@ -200,4 +196,3 @@ const styles = StyleSheet.create({
 });
 
 export default Prestatiesaanmaken;
-
