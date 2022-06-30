@@ -36,7 +36,6 @@ const Login = ({ navigation }) => {
         navigation.navigate("Studenten");
       }
       else {
-        setaccess_token(json.access_token);
         alert("Email of wachtwoord is on juist");
         Alert.alert("Email of wachtwoord is on juist");
       }

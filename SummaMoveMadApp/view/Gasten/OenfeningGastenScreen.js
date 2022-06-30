@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import React, { useState ,useEffect  } from 'react';
 import {
   View,
@@ -24,7 +25,7 @@ const COLORS = {
 
 
 const OenfeningGastenScreen = ({navigation}) => {
- 
+  const isFoucesd = useIsFocused();
 
 
   const [oefeningData, setOefeningData] = useState([]);
@@ -59,8 +60,11 @@ const OenfeningGastenScreen = ({navigation}) => {
   };
 
   useEffect(() => {
-    getAllOefeningen();
-  }, []);
+    if (isFoucesd)
+    {
+      getAllOefeningen();
+    }  
+  }, [isFoucesd]);
 
 
 

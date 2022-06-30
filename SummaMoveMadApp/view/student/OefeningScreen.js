@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useIsFocused } from "@react-navigation/native";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   SafeAreaView,
@@ -9,7 +10,8 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { GebuikerContest } from "../../localData/gebruikergegevens";
 const width = Dimensions.get("window").width / 2 - 30;
 const COLORS = {
   white: "#fff",
@@ -21,6 +23,27 @@ const COLORS = {
 
 const OefeningListScreen = ({ navigation }) => {
   const [oefeningData, setOefeningData] = useState([]);
+  const isFoucesd = useIsFocused();
+ const { Gebuiker } = useContext(GebuikerContest);
+
+  const logout = async () => {
+    const response = await fetch("http://127.0.0.1:8000/api/logout", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + Gebuiker.access_token,
+      },
+    });
+    const json = await response.json();
+    if (json.success == true) {
+      alert("Uitgelogd");
+      navigation.navigate("StartScherm");
+    } else {
+      alert(json.message);
+      Alert.alert(json.message);
+    }
+  };
 
   const getAllOefeningen = async () => {
     try {
@@ -48,10 +71,11 @@ const OefeningListScreen = ({ navigation }) => {
     }
   };
 
-  useEffect(() => {
-    getAllOefeningen();
-  }, []);
-
+   useEffect(() => {
+     if (isFoucesd) {
+       getAllOefeningen();
+     }
+   }, [isFoucesd]);
   const Oefingenview = ({ oefening }) => {
     return (
       <TouchableOpacity
@@ -79,7 +103,14 @@ const OefeningListScreen = ({ navigation }) => {
     <SafeAreaView
       style={{ flex: 1, paddingHorizontal: 20, backgroundColor: COLORS.white }}
     >
-     
+      <View style={style.header}>
+        
+        <View>
+          <TouchableOpacity onPress={logout}>
+            <Icon name="logout" size={20} color="black" />
+          </TouchableOpacity>
+        </View>
+      </View>
 
       <FlatList
         columnWrapperStyle={{ justifyContent: "space-between" }}
